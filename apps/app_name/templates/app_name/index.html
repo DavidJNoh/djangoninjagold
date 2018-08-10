@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <style>
+            .crap{
+                display:inline-block;
+                margin-left: 100px;
+            }
+            .bottom{
+                width: 900px;
+                height: 200px;
+                background-color: lightblue;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Your Gold: {{request.session.gold}}</h2>
+        <div class=crap><h3>Farm</h3><h4>(earns 10-20 golds)</h4>
+            <form action="/process_money" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="building" value="farm" />
+                <input type="submit" value="earngold"/>
+            </form>
+        </div>
+        <div class=crap><h3>Cave</h3><h4>(earns 5-10 golds)</h4>
+            <form action="/process_money" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="building" value="cave" />
+                <input type="submit" value="earngold"/>
+            </form>
+        </div>
+        <div class=crap><h3>House</h3><h4>(earns 2-5 golds)</h4>
+            <form action="/process_money" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="building" value="house" />
+                <input type="submit" value="earngold"/>
+            </form>
+        </div>
+        <div class=crap><h3>Casino</h3><h4>(earns 0-50 golds)</h4>
+            <form action="/process_money" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="building" value="casino" />
+                <input type="submit" value="earngold"/>
+            </form>
+        </div>
+        <h4>Activities</h4>
+        <div class=bottom>
+            <p>{% for x in request.session.list %}
+                <h4>{{x}}</h4>
+                {% endfor %}
+            </p>
+        </div>
+
+        <a href="/clear"><button>Reset</button></a>
+    </body>
+</html>
